@@ -15,9 +15,13 @@ public class UsuarioBO {
     @Autowired
     private UsuarioRepository repository;
 
-    public List<UsuarioModel> getUser() {
-        List<UsuarioModel> test = new ArrayList<>();
-        repository.findAll().forEach(test::add);
-        return test;
+    public List<UsuarioModel> getUsers() {
+        List<UsuarioModel> users = new ArrayList<>();
+        repository.findAll().forEach(users::add);
+        return users;
+    }
+
+    public UsuarioModel saveUser(UsuarioModel user) {
+        return repository.save(user);
     }
 }

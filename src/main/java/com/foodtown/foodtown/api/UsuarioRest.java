@@ -24,14 +24,14 @@ public class UsuarioRest {
         this.usuarioBO = usuarioBO;
     }
 
-    @GetMapping("/test")
+    @GetMapping("/all")
     public List<UsuarioModel> getUser() {
-        return usuarioBO.getUser();
+        return usuarioBO.getUsers();
     }
 
     @PostMapping(path = "/salvar")
     public UsuarioModel salvar(@RequestBody UsuarioModel usuario) {
-        return repository.save(usuario);
+        return usuarioBO.saveUser(usuario);
     }
 
 
