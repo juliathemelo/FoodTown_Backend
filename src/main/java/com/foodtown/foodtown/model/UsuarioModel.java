@@ -2,11 +2,14 @@ package com.foodtown.foodtown.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "usuario")
 public class UsuarioModel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
 
     @Column(nullable = false, length = 50)
@@ -15,7 +18,7 @@ public class UsuarioModel {
     @Column(nullable = false, length = 10)
     public String login;
 
-    @Column(nullable = false, length = 10)
+    @Column(unique = true)
     public String senha;
 
     @Column(nullable = false, length = 100)
