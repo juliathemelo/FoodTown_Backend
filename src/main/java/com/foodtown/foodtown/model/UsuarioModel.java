@@ -21,10 +21,10 @@ public class UsuarioModel {
     @Column(unique = true)
     public String senha;
 
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     public String preferencias;
 
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     public String favoritos;
 
     public Integer getId() {
