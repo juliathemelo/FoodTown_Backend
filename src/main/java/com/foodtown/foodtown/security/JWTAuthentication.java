@@ -1,23 +1,26 @@
 package com.foodtown.foodtown.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.foodtown.foodtown.data.UserDetailData;
-import com.foodtown.foodtown.model.UsuarioModel;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.foodtown.foodtown.data.UserDetailData;
+import com.foodtown.foodtown.model.UsuarioModel;
 
 public class JWTAuthentication extends UsernamePasswordAuthenticationFilter{
 
@@ -49,8 +52,12 @@ public class JWTAuthentication extends UsernamePasswordAuthenticationFilter{
                 withSubject(userData.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_TIME))
                 .sign(Algorithm.HMAC512(TOKEN_PASSWORD));
-
-        response.getWriter().write(token);
-        response.getWriter().flush();
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(
+                "{\"" + "Authorization" + "\":\"" + "Bearer " + token + "\"}"
+        );
+        
     }
 }
