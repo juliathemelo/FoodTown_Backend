@@ -1,5 +1,7 @@
 package com.foodtown.foodtown.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,9 +16,9 @@ public class ProductModel {
 
     @Column(nullable = false, length = 100)
     public String name;
-
-    @Column(nullable = false, length = 10)
-    public Integer validade;
+    
+    @Column(nullable = false, length = 100)
+    public String validade;
 
     @Column(nullable = false, length = 200)
     public String descricao;
@@ -25,7 +27,7 @@ public class ProductModel {
     public Integer preco;
 
     @Column(nullable = false, length = 200)
-    public String tipo;
+    public String categoria;
 
     public Integer getId() {
         return id;
@@ -51,11 +53,11 @@ public class ProductModel {
         this.descricao = descricao;
     }
 
-    public Integer getValidade() {
+    public String getValidade() {
         return validade;
     }
 
-    public void setValidade(Integer validade) {
+    public void setValidade(String validade) {
         this.validade = validade;
     }
 
@@ -67,11 +69,11 @@ public class ProductModel {
         this.preco = preco;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }
