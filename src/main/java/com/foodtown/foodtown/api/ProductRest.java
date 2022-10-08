@@ -37,6 +37,10 @@ public class ProductRest {
     public void delete(@PathVariable Integer id) {
         repository.deleteById(id);
     }
-
+    
+    @PostMapping(path = "/update")
+    public ProductModel update(@RequestBody ProductModel product) {
+        return productBO.updateProduct(product);
+    }
 
 }

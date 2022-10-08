@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Lazy
 @Service("ProductBusiness")
@@ -27,5 +28,17 @@ public class ProductBO {
     public ProductModel saveProduct(ProductModel product) {
         return repository.save(product);
     }
-
+    
+    public ProductModel updateProduct(ProductModel product) {
+       ProductModel productFromDb = repository.getById(product.getId());
+        
+        productFromDb.setCategoria(product.getCategoria());
+        productFromDb.setDescricao(product.getDescricao());
+        productFromDb.setName(product.getName());
+        productFromDb.setPreco(product.getPreco());
+        productFromDb.setValidade(product.getValidade());
+        
+        return repository.save(productFromDb);
+    }
 }
+

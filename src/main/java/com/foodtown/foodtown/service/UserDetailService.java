@@ -23,7 +23,7 @@ public class UserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Optional<UsuarioModel> user = repository.findByLogin(login);
 
-        if (user.isEmpty()) {
+        if (!user.isPresent()) {
             throw new UsernameNotFoundException("Usuário [" + login + "] Não encontrado");
         }
 
