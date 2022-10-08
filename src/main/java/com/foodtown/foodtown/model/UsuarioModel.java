@@ -12,10 +12,10 @@ public class UsuarioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 200)
     public String name;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 100)
     public String login;
 
     @Column(unique = true)
@@ -26,6 +26,17 @@ public class UsuarioModel {
 
     @Column(length = 100)
     public String favoritos;
+    
+    @Column(nullable = false, length = 200)
+    public String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public Integer getId() {
         return id;

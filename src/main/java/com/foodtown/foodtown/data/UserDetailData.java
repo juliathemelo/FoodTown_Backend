@@ -50,4 +50,8 @@ public class UserDetailData implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+    
+    public UsuarioModel getUser() {
+        return user.get();
+    }
 }

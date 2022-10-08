@@ -3,6 +3,7 @@ package com.foodtown.foodtown.security;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,8 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.foodtown.foodtown.data.UserDetailData;
 import com.foodtown.foodtown.model.UsuarioModel;
+import com.foodtown.foodtown.repository.UsuarioRepository;
 
 public class JWTAuthentication extends UsernamePasswordAuthenticationFilter{
 
@@ -47,17 +50,22 @@ public class JWTAuthentication extends UsernamePasswordAuthenticationFilter{
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         UserDetailData userData = (UserDetailData) authResult.getPrincipal();
-
+        
+        
         String token = JWT.create().
                 withSubject(userData.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_TIME))
                 .sign(Algorithm.HMAC512(TOKEN_PASSWORD));
         
+        JSONObject entity = new JSONObject();
+        
+        entity.put("Authorization", "Bearer " + token);
+        entity.put("role",  userData.getUser().getRole() );
+
+        
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(
-                "{\"" + "Authorization" + "\":\"" + "Bearer " + token + "\"}"
-        );
+        response.getWriter().print(entity);
         
     }
 }
